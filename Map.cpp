@@ -1,19 +1,24 @@
 #include <string>
 #include <fstream>
+#include <cmath>
 #include <iostream>
 #include "Map.h"
 
 using namespace std;
 
-Map::Map(){
+Map::Map()
+{
 	
 }
 
-Map::~Map(){
+Map::~Map()
+{
 	
 }
 
-void Map::initMap(string file, int& dimensions, Map& map){
+//reads in file and initializes array from it
+char** Map::initMap(string file, int& dimensions, Map& map)
+{
 	//read file and get dimension of map
 	char text;
 	ifstream fileIn;
@@ -34,10 +39,52 @@ void Map::initMap(string file, int& dimensions, Map& map){
 		{
 			fileIn >> text;
 			m_Map[row][column] = text;
-			cout << m_Map[row][column];
 		}
-		cout << '\n';
 	}
 
 	fileIn.close();
+
+	return m_Map;
+}
+
+//calculates distance from every non-obstacle node to goal node and makes it a new 2D array
+//THIS IS FOR THE MANHATTAN DISTANCE FORMULA
+char** Map::calculateDistances(char**& map, int& dimensions)
+{
+	//make new 2D array a copy of old one
+	char** distMap = new char*[dimensions];
+	for(int i = 0; i < dimensions; ++i)
+	{
+		distMap[i] = new char[dimensions];
+	}
+
+	int goalx, goaly;
+	//find goal node
+	for(int row = 0; row < dimensions; ++row)
+	{
+		for(int column = 0; column < dimensions; ++column)
+		{
+			if (map[row][column] == 'g')
+			{
+				goalx = row;
+				goaly = column;
+			}
+		}
+	}
+
+	//calculates distances from each non obstacle node to goal node using manhattan distance formula and assigns to new array
+	for(int row = 0; row < dimensions; ++row)
+	{
+		for(int column = 0; column < dimensions; ++column)
+		{
+			if (map[row][column] != 'x' && map[row][column] != 'g')
+			{
+				distMap[row][column] = abs((goalx-row)+(goaly-column)); 
+			}
+			else
+			{
+				distMap[row][column] = map[row][column];
+			}
+		}
+	}
 }

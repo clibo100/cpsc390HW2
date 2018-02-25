@@ -10,5 +10,6 @@ class Map
 		Map();
 		~Map();
 
-		void initMap(string file, int& dimensions, Map& map);
+		char** initMap(string file, int& dimensions, Map& map);
+		char** calculateDistances(char**& map, int& dimensions);
 };
