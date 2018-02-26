@@ -11,6 +11,8 @@ int main()
 	char** theMap = map.initMap("map.txt", size, map);
 	int** distMap = map.calculateDistances(theMap, size);
 
+	cout<< "initial map: " << '\n';
+
 	for(int row = 0; row < size; ++row)
 	{
 		for(int column = 0; column < size; ++column)
@@ -20,7 +22,7 @@ int main()
 		cout << '\n';
 	}
 
-	cout << '\n';
+	cout << '\n' << "Manhattan distances array:" << '\n';
 
 	for(int row = 0; row < size; ++row)
 	{
