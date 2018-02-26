@@ -46,6 +46,9 @@ int main()
 	//initialize robot
 	Robot robot;
 
+	//robot.traverseMap(theMap, distMap, size);
+	//do this when this function actually does something 
+
 	//TODO: the rest of the program lolol
 
 	return 0;
