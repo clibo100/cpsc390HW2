@@ -83,7 +83,7 @@ int** Map::calculateDistances(char**& map, int& dimensions)
 			}
 			else
 			{
-				distMap[row][column] = 0;
+				distMap[row][column] = 1000;
 			}
 		}
 	}

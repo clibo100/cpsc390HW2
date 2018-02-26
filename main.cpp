@@ -28,7 +28,14 @@ int main()
 	{
 		for(int column = 0; column < size; ++column)
 		{
-			cout << distMap[row][column];
+			if (distMap[row][column] == 1000)
+			{
+				cout<< theMap[row][column];
+			} 
+			else
+			{
+				cout << distMap[row][column];
+			}
 		}
 		cout << '\n';
 	}
