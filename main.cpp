@@ -1,16 +1,19 @@
 #include <iostream>
 #include "Map.h"
+#include "Robot.h"
 
 using namespace std;
 
 int main()
 {
+	//read in map and calculate the distance map
 	Map map;
 	int size;
 	string file;
 	char** theMap = map.initMap("map.txt", size, map);
 	int** distMap = map.calculateDistances(theMap, size);
 
+	//print maps to cmd line
 	cout<< "initial map: " << '\n';
 
 	for(int row = 0; row < size; ++row)
@@ -39,6 +42,11 @@ int main()
 		}
 		cout << '\n';
 	}
+
+	//initialize robot
+	Robot robot;
+
+	//TODO: the rest of the program lolol
 
 	return 0;
 }

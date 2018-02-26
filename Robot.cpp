@@ -18,8 +18,9 @@ Robot::~Robot()
 
 }
 
-Robot:: initRobot(char**& map, int& dimensions)
+void Robot:: initRobot(char**& map, int& dimensions)
 {
+	//find initial node and set robot location to it
 	for (int row = 0; row<dimensions; ++row)
 	{
 		for (int column = 0; column<dimensions; ++column)
@@ -31,4 +32,9 @@ Robot:: initRobot(char**& map, int& dimensions)
 			}
 		}
 	}
+}
+
+void Robot:: traverseMap(char**& map, int**& distMap, int& dimensions)
+{
+
 }
