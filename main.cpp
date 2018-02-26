@@ -8,13 +8,25 @@ int main()
 	Map map;
 	int size;
 	string file;
-	char** newMap = map.initMap("map.txt", size, map);
+	char** theMap = map.initMap("map.txt", size, map);
+	int** distMap = map.calculateDistances(theMap, size);
 
 	for(int row = 0; row < size; ++row)
 	{
 		for(int column = 0; column < size; ++column)
 		{
-			cout << newMap[row][column];
+			cout << theMap[row][column];
+		}
+		cout << '\n';
+	}
+
+	cout << '\n';
+
+	for(int row = 0; row < size; ++row)
+	{
+		for(int column = 0; column < size; ++column)
+		{
+			cout << distMap[row][column];
 		}
 		cout << '\n';
 	}

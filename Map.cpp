@@ -49,13 +49,13 @@ char** Map::initMap(string file, int& dimensions, Map& map)
 
 //calculates distance from every non-obstacle node to goal node and makes it a new 2D array
 //THIS IS FOR THE MANHATTAN DISTANCE FORMULA
-char** Map::calculateDistances(char**& map, int& dimensions)
+int** Map::calculateDistances(char**& map, int& dimensions)
 {
 	//make new 2D array a copy of old one
-	char** distMap = new char*[dimensions];
+	int** distMap = new int*[dimensions];
 	for(int i = 0; i < dimensions; ++i)
 	{
-		distMap[i] = new char[dimensions];
+		distMap[i] = new int[dimensions];
 	}
 
 	int goalx, goaly;
@@ -77,14 +77,16 @@ char** Map::calculateDistances(char**& map, int& dimensions)
 	{
 		for(int column = 0; column < dimensions; ++column)
 		{
-			if (map[row][column] != 'x' && map[row][column] != 'g')
+			if (map[row][column] != 'x' && map[row][column] != 'g' && map[row][column] != 'i')
 			{
-				distMap[row][column] = abs((goalx-row)+(goaly-column)); 
+				distMap[row][column] = abs(goalx-row)+abs(goaly-column); 
 			}
 			else
 			{
-				distMap[row][column] = map[row][column];
+				distMap[row][column] = 0;
 			}
 		}
 	}
+
+	return distMap;
 }
