@@ -48,8 +48,8 @@ int main()
 	Robot robot;
 
 	//Testing nodes and getting pointers
-	Node foo = Node(1, 1);
-	Node bar = Node(2, 2);
+	Node foo = Node();
+	Node bar = Node();
 	foo.setDistance(5);
 	bar.setPrevious(&foo);
 	cout << bar.getPrevious() -> getDistance();

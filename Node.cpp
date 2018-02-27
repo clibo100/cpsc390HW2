@@ -1,4 +1,5 @@
 #include "Node.h"
+#include <cstddef>
 
 using namespace std;
 
@@ -9,13 +10,14 @@ using namespace std;
 
 Node::Node()
 {
+	this->rowPosition = 0;
+	this->columnPosition = 0;
 
-}
+	this->previousNode = NULL;
 
-Node::Node(int row, int column)
-{
-	this->rowPosition = row;
-	this->columnPosition = column;
+	this->visited = false;
+	this->initial = false;
+	this->goal = false;
 }
 
 Node::~Node()
@@ -28,6 +30,16 @@ void Node::setDistance(int distance)
 	this->distance = distance;
 }
 
+void Node::setRow(int row)
+{
+	this->rowPosition = row;
+}
+
+void Node::setColumn(int column)
+{
+	this->columnPosition = column;
+}
+
 void Node::setVisit(bool visit)
 {
 	this->visited = visit;
@@ -36,6 +48,11 @@ void Node::setVisit(bool visit)
 void Node::setPrevious(Node* previous)
 {
 	this->previousNode = previous;
+}
+
+void Node::setInitial(bool initial)
+{
+	this->initial = initial;
 }
 
 void Node::setGoal(bool goal)
@@ -61,6 +78,11 @@ int Node::getColumn()
 bool Node::isVisited()
 {
 	return this->visited;
+}
+
+bool Node::isInitial()
+{
+	return this->initial;
 }
 
 bool Node::isGoal()
