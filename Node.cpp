@@ -18,6 +18,7 @@ Node::Node()
 	this->visited = false;
 	this->initial = false;
 	this->goal = false;
+	this->obstacle = false;
 }
 
 Node::~Node()
@@ -88,6 +89,11 @@ bool Node::isVisited()
 bool Node::isInitial()
 {
 	return this->initial;
+}
+
+bool Node::isObstacle()
+{
+	return this->obstacle;
 }
 
 bool Node::isGoal()

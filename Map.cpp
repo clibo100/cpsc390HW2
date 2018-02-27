@@ -2,7 +2,9 @@
 #include <fstream>
 #include <cmath>
 #include <iostream>
+class Node;
 #include "Map.h"
+#include "Node.h"
 
 using namespace std;
 
@@ -49,22 +51,15 @@ char** Map::initMap(string file, int& dimensions, Map& map)
 
 //calculates distance from every non-obstacle node to goal node and makes it a new 2D array
 //THIS IS FOR THE MANHATTAN DISTANCE FORMULA
-int** Map::calculateDistances(char**& map, int& dimensions)
+void Map::calculateDistances(Node**& map, int& dimensions)
 {
-	//make new 2D array a copy of old one
-	int** distMap = new int*[dimensions];
-	for(int i = 0; i < dimensions; ++i)
-	{
-		distMap[i] = new int[dimensions];
-	}
-
 	int goalx, goaly;
 	//find goal node
 	for(int row = 0; row < dimensions; ++row)
 	{
 		for(int column = 0; column < dimensions; ++column)
 		{
-			if (map[row][column] == 'g')
+			if (map[row][column].isGoal())
 			{
 				goalx = row;
 				goaly = column;
@@ -77,16 +72,57 @@ int** Map::calculateDistances(char**& map, int& dimensions)
 	{
 		for(int column = 0; column < dimensions; ++column)
 		{
-			if (map[row][column] != 'x' && map[row][column] != 'g' && map[row][column] != 'i')
+			if (!map[row][column].isObstacle() && !map[row][column].isGoal() && !map[row][column].isInitial())
 			{
-				distMap[row][column] = abs(goalx-row)+abs(goaly-column); 
+				map[row][column].setDistance(abs(goalx-row)+abs(goaly-column)); 
 			}
 			else
 			{
-				distMap[row][column] = 1000;
+				map[row][column].setDistance(1000);
+			}
+		}
+	}
+}
+
+Node** Map::initMapNode(string file, int& dimensions, Map& map)
+{
+	//read file and get dimension of map
+	char text;
+	ifstream fileIn;
+	fileIn.open(file.c_str());
+	fileIn >> dimensions;
+
+	//initialize 2D array to simulate map
+	Node** m_Map = new Node*[dimensions];
+	for(int i = 0; i < dimensions; ++i)
+	{
+		m_Map[i] = new Node[dimensions];
+	}
+
+	//read map from file and assign to 2D array
+	for(int row = 0; row < dimensions; ++row)
+	{
+		for(int column = 0; column < dimensions; ++column)
+		{
+			fileIn >> text;
+			m_Map[row][column].setRow(row);
+			m_Map[row][column].setColumn(column);
+			if (text == 'g')
+			{
+				m_Map[row][column].setGoal(true);
+			}
+			if (text == 'i')
+			{
+				m_Map[row][column].setInitial(true);
+			}
+			if (text == 'x')
+			{
+				m_Map[row][column].setObstacle(true);
 			}
 		}
 	}
 
-	return distMap;
+	fileIn.close();
+
+	return m_Map;
 }

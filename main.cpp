@@ -11,8 +11,8 @@ int main()
 	Map map;
 	int size;
 	string file;
-	char** theMap = map.initMap("map.txt", size, map);
-	int** distMap = map.calculateDistances(theMap, size);
+	Node** theMap = map.initMapNode("map.txt", size, map);
+	map.calculateDistances(theMap, size);
 
 	//print maps to cmd line
 	cout<< "initial map: " << '\n';
@@ -21,7 +21,22 @@ int main()
 	{
 		for(int column = 0; column < size; ++column)
 		{
-			cout << theMap[row][column];
+			if (theMap[row][column].isInitial())
+			{
+				cout<<'i';
+			}
+			else if (theMap[row][column].isGoal())
+			{
+				cout<<'g';
+			}
+			else if (theMap[row][column].isObstacle())
+			{
+				cout<<"x";
+			}
+			else
+			{
+				cout<<'-';
+			}
 		}
 		cout << '\n';
 	}
@@ -32,27 +47,35 @@ int main()
 	{
 		for(int column = 0; column < size; ++column)
 		{
-			if (distMap[row][column] == 1000)
+			if (!theMap[row][column].isObstacle() && !theMap[row][column].isGoal() && !theMap[row][column].isInitial())
 			{
-				cout<< theMap[row][column];
-			} 
-			else
+				cout<<theMap[row][column].getDistance();
+			}
+			else if(theMap[row][column].isObstacle())
 			{
-				cout << distMap[row][column];
+				cout<<'x';
+			}
+			else if(theMap[row][column].isInitial())
+			{
+				cout<<'i';
+			}
+			else if(theMap[row][column].isGoal())
+			{
+				cout<<'g';
 			}
 		}
 		cout << '\n';
 	}
 
 	//initialize robot
-	Robot robot;
+	//Robot robot;
 
 	//Testing nodes and getting pointers
-	Node foo = Node();
+	/*Node foo = Node();
 	Node bar = Node();
 	foo.setDistance(5);
 	bar.setPrevious(&foo);
-	cout << bar.getPrevious() -> getDistance();
+	cout << bar.getPrevious() -> getDistance();*/
 
 
 	//robot.traverseMap(theMap, distMap, size);

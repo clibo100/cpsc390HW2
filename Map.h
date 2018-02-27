@@ -1,4 +1,5 @@
 #include <string>
+class Node;
 
 using namespace std;
 
@@ -11,5 +12,6 @@ class Map
 		~Map();
 
 		char** initMap(string file, int& dimensions, Map& map);
-		int** calculateDistances(char**& map, int& dimensions);
+		void calculateDistances(Node**& map, int& dimensions);
+		Node** initMapNode(string file, int& dimensions, Map& map);
 };
