@@ -63,7 +63,7 @@ Node** Map::initMap(string file, int& dimensions, Map& map)
 
 //calculates distance from every non-obstacle node to goal node and makes it a new 2D array
 //THIS IS FOR THE MANHATTAN DISTANCE FORMULA
-void Map::calculateDistances(Node**& map, int& dimensions)
+void Map::calcManhattan(Node**& map, int& dimensions)
 {
 	int goalx, goaly;
 	//find goal node

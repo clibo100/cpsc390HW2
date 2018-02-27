@@ -10,6 +10,6 @@ class Robot
 		Robot();
 		~Robot();
 
-		void initRobot(char**& map, int& dimensions);
-		void traverseMap(char**& map, int**& distMap, int& dimensions);
+		void initRobot(Node**& map, int& dimensions);
+		void traverseMap(Node**& map, int& dimensions);
 };

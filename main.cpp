@@ -12,7 +12,7 @@ int main()
 	int size;
 	string file;
 	Node** theMap = map.initMap("map.txt", size, map);
-	map.calculateDistances(theMap, size);
+	map.calcManhattan(theMap, size);
 
 	//print maps to cmd line
 	cout<< "initial map: " << '\n';

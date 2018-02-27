@@ -11,6 +11,6 @@ class Map
 		Map();
 		~Map();
 
-		void calculateDistances(Node**& map, int& dimensions);
+		void calcManhattan(Node**& map, int& dimensions);
 		Node** initMap(string file, int& dimensions, Map& map);
 };
