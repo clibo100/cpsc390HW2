@@ -6,7 +6,7 @@ class Node
 		int distance;
 		int rowPosition, columnPosition;
 		Node* previousNode;
-		bool visited, initial, goal;
+		bool visited, initial, goal, obstacle;
 
 	public:
 		Node();
@@ -19,6 +19,7 @@ class Node
 		void setPrevious(Node* previous);
 		void setInitial(bool initial);
 		void setGoal(bool goal);
+		void setObstacle(bool obstacle);
 
 		int getDistance();
 		int getRow();
@@ -26,5 +27,6 @@ class Node
 		bool isVisited();
 		bool isInitial();
 		bool isGoal();
+		bool isObstacle();
 		Node* getPrevious();
 };

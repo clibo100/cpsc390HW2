@@ -60,6 +60,11 @@ void Node::setGoal(bool goal)
 	this->goal = goal;
 }
 
+void Node::setObstacle(bool obstacle)
+{
+	this->obstacle = obstacle;
+}
+
 int Node::getDistance()
 {
 	return this->distance;
