@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int xposition, yposition;
+int rowPosition, columnPosition;
 
 Robot::Robot()
 {
@@ -27,8 +27,8 @@ void Robot:: initRobot(char**& map, int& dimensions)
 		{
 			if (map[row][column] == 'i')
 			{
-				xposition = row;
-				yposition = column;
+				rowPosition = row;
+				columnPosition = column;
 			}
 		}
 	}

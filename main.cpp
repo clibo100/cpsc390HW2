@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Map.h"
 #include "Robot.h"
+#include "Node.h"
 
 using namespace std;
 
@@ -45,6 +46,14 @@ int main()
 
 	//initialize robot
 	Robot robot;
+
+	//Testing nodes and getting pointers
+	//Node foo = Node(1, 1);
+	//Node bar = Node(2, 2);
+
+	//bar.setPrevious(&foo);
+	//cout << bar.getPrevious()->getRow() << bar.getPrevious()->getColumn();
+
 
 	//robot.traverseMap(theMap, distMap, size);
 	//do this when this function actually does something 
