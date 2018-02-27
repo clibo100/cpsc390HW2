@@ -2,9 +2,10 @@
 
 using namespace std;
 
-int rowPosition, columnPosition;
-Node* previousNode;
-bool visited;
+//int distance;
+//int rowPosition, columnPosition;
+//Node* previousNode;
+//bool visited;
 
 Node::Node()
 {
@@ -22,6 +23,11 @@ Node::~Node()
 
 }
 
+void Node::setDistance(int distance)
+{
+	this->distance = distance;
+}
+
 void Node::setVisit(bool visit)
 {
 	this->visited = visit;
@@ -30,6 +36,16 @@ void Node::setVisit(bool visit)
 void Node::setPrevious(Node* previous)
 {
 	this->previousNode = previous;
+}
+
+void Node::setGoal(bool goal)
+{
+	this->goal = goal;
+}
+
+int Node::getDistance()
+{
+	return this->distance;
 }
 
 int Node::getRow()
@@ -45,6 +61,11 @@ int Node::getColumn()
 bool Node::isVisited()
 {
 	return this->visited;
+}
+
+bool Node::isGoal()
+{
+	return this->goal;
 }
 
 Node* Node::getPrevious()

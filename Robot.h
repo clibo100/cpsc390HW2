@@ -5,7 +5,7 @@ using namespace std;
 class Robot
 {
 	private:
-
+		int rowPosition, columnPosition;
 	public:
 		Robot();
 		~Robot();

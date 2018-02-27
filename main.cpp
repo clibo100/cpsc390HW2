@@ -48,11 +48,11 @@ int main()
 	Robot robot;
 
 	//Testing nodes and getting pointers
-	//Node foo = Node(1, 1);
-	//Node bar = Node(2, 2);
-
-	//bar.setPrevious(&foo);
-	//cout << bar.getPrevious()->getRow() << bar.getPrevious()->getColumn();
+	Node foo = Node(1, 1);
+	Node bar = Node(2, 2);
+	foo.setDistance(5);
+	bar.setPrevious(&foo);
+	cout << bar.getPrevious() -> getDistance();
 
 
 	//robot.traverseMap(theMap, distMap, size);

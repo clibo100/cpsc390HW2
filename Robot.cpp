@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int rowPosition, columnPosition;
+//int rowPosition, columnPosition;
 
 Robot::Robot()
 {
