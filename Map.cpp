@@ -18,8 +18,7 @@ Map::~Map()
 	
 }
 
-//reads in file and initializes array from it
-char** Map::initMap(string file, int& dimensions, Map& map)
+Node** Map::initMap(string file, int& dimensions, Map& map)
 {
 	//read file and get dimension of map
 	char text;
@@ -28,10 +27,10 @@ char** Map::initMap(string file, int& dimensions, Map& map)
 	fileIn >> dimensions;
 
 	//initialize 2D array to simulate map
-	char** m_Map = new char*[dimensions];
+	Node** m_Map = new Node*[dimensions];
 	for(int i = 0; i < dimensions; ++i)
 	{
-		m_Map[i] = new char[dimensions];
+		m_Map[i] = new Node[dimensions];
 	}
 
 	//read map from file and assign to 2D array
@@ -40,7 +39,20 @@ char** Map::initMap(string file, int& dimensions, Map& map)
 		for(int column = 0; column < dimensions; ++column)
 		{
 			fileIn >> text;
-			m_Map[row][column] = text;
+			m_Map[row][column].setRow(row);
+			m_Map[row][column].setColumn(column);
+			if (text == 'g')
+			{
+				m_Map[row][column].setGoal(true);
+			}
+			if (text == 'i')
+			{
+				m_Map[row][column].setInitial(true);
+			}
+			if (text == 'x')
+			{
+				m_Map[row][column].setObstacle(true);
+			}
 		}
 	}
 
@@ -84,45 +96,3 @@ void Map::calculateDistances(Node**& map, int& dimensions)
 	}
 }
 
-Node** Map::initMapNode(string file, int& dimensions, Map& map)
-{
-	//read file and get dimension of map
-	char text;
-	ifstream fileIn;
-	fileIn.open(file.c_str());
-	fileIn >> dimensions;
-
-	//initialize 2D array to simulate map
-	Node** m_Map = new Node*[dimensions];
-	for(int i = 0; i < dimensions; ++i)
-	{
-		m_Map[i] = new Node[dimensions];
-	}
-
-	//read map from file and assign to 2D array
-	for(int row = 0; row < dimensions; ++row)
-	{
-		for(int column = 0; column < dimensions; ++column)
-		{
-			fileIn >> text;
-			m_Map[row][column].setRow(row);
-			m_Map[row][column].setColumn(column);
-			if (text == 'g')
-			{
-				m_Map[row][column].setGoal(true);
-			}
-			if (text == 'i')
-			{
-				m_Map[row][column].setInitial(true);
-			}
-			if (text == 'x')
-			{
-				m_Map[row][column].setObstacle(true);
-			}
-		}
-	}
-
-	fileIn.close();
-
-	return m_Map;
-}

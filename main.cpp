@@ -11,7 +11,7 @@ int main()
 	Map map;
 	int size;
 	string file;
-	Node** theMap = map.initMapNode("map.txt", size, map);
+	Node** theMap = map.initMap("map.txt", size, map);
 	map.calculateDistances(theMap, size);
 
 	//print maps to cmd line
@@ -68,7 +68,7 @@ int main()
 	}
 
 	//initialize robot
-	//Robot robot;
+	Robot robot;
 
 	//Testing nodes and getting pointers
 	/*Node foo = Node();
