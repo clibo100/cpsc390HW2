@@ -1,6 +1,8 @@
 #include <string>
+#include <list>
 #include <fstream>
 #include <cmath>
+#include <cstddef>
 #include <iostream>
 class Node;
 #include "Robot.h"
@@ -8,11 +10,13 @@ class Node;
 
 using namespace std;
 
-int rowPosition, columnPosition;
+//int rowPosition, columnPosition;
 
 Robot::Robot()
 {
-	
+	list<Node*> myFringe;
+	rowPosition = 0;
+	columnPosition = 0;
 }
 
 Robot::~Robot()
@@ -20,7 +24,7 @@ Robot::~Robot()
 
 }
 
-void Robot:: initRobot(Node**& map, int& dimensions)
+void Robot::initRobot(Node**& map, int& dimensions)
 {
 	//find initial node and set robot location to it
 	for (int row = 0; row<dimensions; ++row)
@@ -36,40 +40,101 @@ void Robot:: initRobot(Node**& map, int& dimensions)
 	}
 }
 
-void Robot:: traverseMap(Node**& map, int& dimensions)
+void Robot::setLocation(int row, int column)
 {
-	//get distances of surrounding nodes
-	int upDistance, downDistance, leftDistance, rightDistance;
+	this->rowPosition = row;
+	this->columnPosition = column;
+}
+
+bool Robot::traverseMap(Node**& map, int& dimensions)
+{
+	//get surrounding nodes
+	Node* upNode;
+	Node* downNode;
+	Node* leftNode;
+	Node* rightNode;
+
 	if (rowPosition != 0 && !map[rowPosition-1][columnPosition].isObstacle())
 	{
-		upDistance = map[rowPosition-1][columnPosition].getDistance();
+		upNode = &(map[rowPosition-1][columnPosition]);
+		if(!upNode->isVisited())
+		{
+			addToFringe(upNode, myFringe);	
+		}
 	}
 	else
 	{
-		upDistance = 1000;
+		upNode = NULL;
 	}
 	if (rowPosition < dimensions-1 && !map[rowPosition+1][columnPosition].isObstacle())
 	{
-		downDistance = map[rowPosition+1][columnPosition].getDistance();
+		downNode = &(map[rowPosition+1][columnPosition]);
+		if(!downNode->isVisited())
+		{
+			addToFringe(downNode, myFringe);
+		}
 	}
 	else
 	{
-		downDistance = 1000;
+		downNode = NULL;
 	}
 	if (columnPosition != 0 && !map[rowPosition][columnPosition-1].isObstacle())
 	{
-		leftDistance = map[rowPosition][columnPosition-1].getDistance();
+		leftNode = &(map[rowPosition][columnPosition-1]);
+		if(!leftNode->isVisited()) 
+		{
+			addToFringe(leftNode, myFringe);
+		}
 	}
 	else
 	{
-		leftDistance = 1000;
+		leftNode = NULL;
 	}
 	if (columnPosition <dimensions-1 && !map[rowPosition][columnPosition+1].isObstacle())
 	{
-		rightDistance = map[rowPosition][columnPosition+1].getDistance();
+		rightNode = &(map[rowPosition][columnPosition+1]);
+		if(!rightNode->isVisited()) 
+		{
+			addToFringe(rightNode, myFringe);
+		}
 	}
 	else
 	{
-		rightDistance = 1000;
+		rightNode = NULL;
 	}
+
+	Node* nextNode = NULL;
+	list<Node*>::iterator i;
+	for(i = myFringe.begin(); i != myFringe.end(); ++i)
+	{
+		Node* curr = *i;
+		if(curr->isGoal())
+		{
+			nextNode = curr;
+			break;
+		}
+		else if(nextNode == NULL || nextNode->getDistance() > curr->getDistance()) 
+		{
+			nextNode = curr;
+		}
+	}
+	nextNode->setPrevious(&(map[rowPosition][columnPosition]));
+	setLocation(nextNode->getRow(), nextNode->getColumn());
+
+	cout << "Old Location: " << '\n'
+	<< "Row: " << nextNode->getPrevious()->getRow() << '\n'
+	<< "Column: " << nextNode->getPrevious()->getColumn() << '\n';
+
+	cout << "New location: " << '\n'
+	<< "Row: " << rowPosition << '\n'
+	<< "Column: " << columnPosition << '\n';
+
+	if(nextNode->isGoal()) return 1;
+	else return 0;
+}
+
+void Robot::addToFringe(Node*& node, list<Node*>& fringe)
+{
+	node->setVisit(true);
+	fringe.push_front(node);
 }

@@ -69,7 +69,9 @@ int main()
 
 	//initialize robot
 	Robot robot;
-
+	robot.initRobot(theMap, size); 
+	bool bro = robot.traverseMap(theMap, size);
+	cout << bro;
 	//Testing nodes and getting pointers
 	/*Node foo = Node();
 	Node bar = Node();
