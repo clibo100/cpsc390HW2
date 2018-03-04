@@ -16,7 +16,8 @@ class Robot
 		void setLocation(int row, int column);
 		void initRobot(Node**& map, int& dimensions);
 		bool traverseMap(Node**& map, int& dimensions);
+		void showPath(Node*& goal);
 
 		void printFringe();
-		void addToFringe(Node*& node, list<Node*>& fringe);
+		void addToFringe(Node**& map, Node*& node, list<Node*>& fringe);
 };

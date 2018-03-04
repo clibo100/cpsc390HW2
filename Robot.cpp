@@ -39,6 +39,8 @@ void Robot::initRobot(Node**& map, int& dimensions)
 			}
 		}
 	}
+
+	cout << "Robot starting at (" << columnPosition << ',' << rowPosition << ')' << '\n';
 }
 
 void Robot::setLocation(int row, int column)
@@ -60,7 +62,7 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 		upNode = &(map[rowPosition-1][columnPosition]);
 		if(!upNode->isVisited())
 		{
-			addToFringe(upNode, myFringe);
+			addToFringe(map, upNode, myFringe);
 		}
 	}
 	else
@@ -72,7 +74,7 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 		downNode = &(map[rowPosition+1][columnPosition]);
 		if(!downNode->isVisited())
 		{
-			addToFringe(downNode, myFringe);
+			addToFringe(map, downNode, myFringe);
 		}
 	}
 	else
@@ -84,7 +86,7 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 		leftNode = &(map[rowPosition][columnPosition-1]);
 		if(!leftNode->isVisited()) 
 		{
-			addToFringe(leftNode, myFringe);
+			addToFringe(map, leftNode, myFringe);
 		}
 	}
 	else
@@ -96,7 +98,7 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 		rightNode = &(map[rowPosition][columnPosition+1]);
 		if(!rightNode->isVisited()) 
 		{
-			addToFringe(rightNode, myFringe);
+			addToFringe(map, rightNode, myFringe);
 		}
 	}
 	else
@@ -121,7 +123,6 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 	}
 	printFringe();
 
-	nextNode->setPrevious(&(map[rowPosition][columnPosition]));
 	setLocation(nextNode->getRow(), nextNode->getColumn());
 	myFringe.remove(nextNode);
 	nodeCount--;
@@ -137,6 +138,7 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 	{
 		cout << "Goal found at ";
 		nextNode->printLocation();
+		showPath(nextNode);
 		return 1;
 	}
 	else
@@ -145,6 +147,19 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 		nextNode->printLocation();
 		return 0;
 	}
+}
+
+void Robot::showPath(Node*& goal)
+{
+	Node* myNode = goal;
+	cout << "Following path found: " << '\n' << "GOAL" << '\n';
+	myNode->printLocation();
+	while(!myNode->isInitial())
+	{
+		myNode = myNode->getPrevious();
+		myNode->printLocation();
+	}
+	cout << "START" << '\n';
 }
 
 void Robot::printFringe()
@@ -163,10 +178,10 @@ void Robot::printFringe()
 	}
 }
 
-void Robot::addToFringe(Node*& node, list<Node*>& fringe)
+void Robot::addToFringe(Node**& map, Node*& node, list<Node*>& fringe)
 {
 	nodeCount++;
 	node->setVisit(true);
+	node->setPrevious(&(map[rowPosition][columnPosition]));
 	fringe.push_front(node);
-	//printFringe();
 }
