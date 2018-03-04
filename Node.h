@@ -12,6 +12,8 @@ class Node
 		Node();
 		~Node();
 
+		void printLocation();
+
 		void setDistance(int distance);
 		void setRow(int row);
 		void setColumn(int column);

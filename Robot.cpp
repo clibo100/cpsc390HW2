@@ -17,6 +17,7 @@ Robot::Robot()
 	list<Node*> myFringe;
 	rowPosition = 0;
 	columnPosition = 0;
+	nodeCount = 0;
 }
 
 Robot::~Robot()
@@ -59,7 +60,7 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 		upNode = &(map[rowPosition-1][columnPosition]);
 		if(!upNode->isVisited())
 		{
-			addToFringe(upNode, myFringe);	
+			addToFringe(upNode, myFringe);
 		}
 	}
 	else
@@ -118,23 +119,54 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 			nextNode = curr;
 		}
 	}
+	printFringe();
+
 	nextNode->setPrevious(&(map[rowPosition][columnPosition]));
 	setLocation(nextNode->getRow(), nextNode->getColumn());
+	myFringe.remove(nextNode);
+	nodeCount--;
+	// cout << "Old Location: " << '\n'
+	// << "Row: " << nextNode->getPrevious()->getRow() << '\n'
+	// << "Column: " << nextNode->getPrevious()->getColumn() << '\n';
 
-	cout << "Old Location: " << '\n'
-	<< "Row: " << nextNode->getPrevious()->getRow() << '\n'
-	<< "Column: " << nextNode->getPrevious()->getColumn() << '\n';
+	// cout << "New location: " << '\n'
+	// << "Row: " << rowPosition << '\n'
+	// << "Column: " << columnPosition << '\n';
 
-	cout << "New location: " << '\n'
-	<< "Row: " << rowPosition << '\n'
-	<< "Column: " << columnPosition << '\n';
+	if(nextNode->isGoal())
+	{
+		cout << "Goal found at ";
+		nextNode->printLocation();
+		return 1;
+	}
+	else
+	{
+		cout << "Moving towards ";
+		nextNode->printLocation();
+		return 0;
+	}
+}
 
-	if(nextNode->isGoal()) return 1;
-	else return 0;
+void Robot::printFringe()
+{
+	if(nodeCount == 0) return;
+	else
+	{
+		cout << "Nodes in fringe: " << nodeCount << '\n';
+		Node* myNode = NULL;
+		list<Node*>::iterator i;
+		for(i = myFringe.begin(); i != myFringe.end(); ++i)
+		{
+			myNode = *i;
+			myNode->printLocation();
+		}
+	}
 }
 
 void Robot::addToFringe(Node*& node, list<Node*>& fringe)
 {
+	nodeCount++;
 	node->setVisit(true);
 	fringe.push_front(node);
+	//printFringe();
 }

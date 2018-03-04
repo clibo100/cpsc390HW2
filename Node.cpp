@@ -1,5 +1,6 @@
 #include "Node.h"
 #include <cstddef>
+#include <iostream>
 
 using namespace std;
 
@@ -24,6 +25,11 @@ Node::Node()
 Node::~Node()
 {
 
+}
+
+void Node::printLocation()
+{
+	cout << '(' << columnPosition << ',' << rowPosition << ')' << '\n';
 }
 
 void Node::setDistance(int distance)
