@@ -168,13 +168,14 @@ void Robot::showPath(Node*& goal, Node**& map)
 
 	myNode->printLocation();
 
-	finalMap[myNode->getRow(), myNode->getColumn()]->setVisit(true);
+	finalMap[myNode->getRow()][myNode->getColumn()].setVisit(true);
 	
 	while(!myNode->isInitial())
 	{
 		myNode = myNode->getPrevious();
-		myNode->printLocation();
-		finalMap[myNode->getRow(), myNode->getColumn()]->setVisit(true);
+		//myNode->printLocation();
+		cout << myNode->getRow() << ',' << myNode->getColumn() << '\n';
+		finalMap[myNode->getRow()][myNode->getColumn()]->setVisit(true);
 	}
 	
 	cout << "START" << '\n'<<endl;
