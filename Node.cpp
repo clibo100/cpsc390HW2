@@ -13,6 +13,7 @@ Node::Node()
 {
 	this->rowPosition = 0;
 	this->columnPosition = 0;
+	this->distanceMod = 0;
 
 	this->previousNode = NULL;
 
@@ -35,6 +36,11 @@ void Node::printLocation()
 void Node::setDistance(double distance)
 {
 	this->distance = distance;
+}
+
+void Node::setDistanceMod(int distanceMod)
+{
+	this->distanceMod = distanceMod;
 }
 
 void Node::setRow(int row)
@@ -73,6 +79,16 @@ void Node::setObstacle(bool obstacle)
 }
 
 double Node::getDistance()
+{
+	return this->distance + this->distanceMod;
+}
+
+int Node::getDistanceMod()
+{
+	return this->distanceMod;
+}
+
+double Node::getActualDistance()
 {
 	return this->distance;
 }

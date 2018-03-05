@@ -97,7 +97,7 @@ int main()
 
 	//initialize robot
 	Robot robot;
-	robot.initRobot(theMap, size);
+	robot.initRobot(theMap, size, choice);
 	bool goalReached = false;
 	while(!goalReached)
 	{

@@ -4,7 +4,7 @@ class Node
 {
 	private:
 		double distance;
-		int rowPosition, columnPosition;
+		int rowPosition, columnPosition, distanceMod;
 		Node* previousNode;
 		bool visited, initial, goal, obstacle;
 
@@ -15,6 +15,7 @@ class Node
 		void printLocation();
 
 		void setDistance(double distance);
+		void setDistanceMod(int distanceMod);
 		void setRow(int row);
 		void setColumn(int column);
 		void setVisit(bool visit);
@@ -24,6 +25,8 @@ class Node
 		void setObstacle(bool obstacle);
 
 		double getDistance();
+		int getDistanceMod();
+		double getActualDistance();
 		int getRow();
 		int getColumn();
 		bool isVisited();

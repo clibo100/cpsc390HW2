@@ -10,8 +10,6 @@ class Node;
 
 using namespace std;
 
-//int rowPosition, columnPosition;
-
 Robot::Robot()
 {
 	list<Node*> myFringe;
@@ -19,6 +17,7 @@ Robot::Robot()
 	columnPosition = 0;
 	nodeCount = 0;
 	dimensions = 0;
+	choice = 'a';
 }
 
 Robot::~Robot()
@@ -26,7 +25,7 @@ Robot::~Robot()
 
 }
 
-void Robot::initRobot(Node**& map, int& dimensions)
+void Robot::initRobot(Node**& map, int& dimensions, char choice)
 {
 	//find initial node and set robot location to it
 	for (int row = 0; row<dimensions; ++row)
@@ -43,6 +42,7 @@ void Robot::initRobot(Node**& map, int& dimensions)
 
 	cout << "\nRobot starting at (" << rowPosition << ',' << columnPosition << ')' << '\n';
 	this->dimensions = dimensions;
+	this->choice = choice;
 }
 
 void Robot::setLocation(int row, int column)
@@ -64,6 +64,17 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 		upNode = &(map[rowPosition-1][columnPosition]);
 		if(!upNode->isVisited())
 		{
+			if (choice == 'c' || choice == 'd')
+			{
+				if (map[rowPosition][columnPosition].getDistanceMod() == 0)
+				{
+					upNode->setDistanceMod(1);
+				}
+				else
+				{
+					upNode->setDistanceMod(map[rowPosition][columnPosition].getDistanceMod()+1);
+				}
+			}
 			addToFringe(map, upNode, myFringe);
 		}
 	}
@@ -76,6 +87,17 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 		downNode = &(map[rowPosition+1][columnPosition]);
 		if(!downNode->isVisited())
 		{
+			if (choice == 'c' || choice == 'd')
+			{
+				if (map[rowPosition][columnPosition].getDistanceMod() == 0)
+				{
+					downNode->setDistanceMod(1);
+				}
+				else
+				{
+					downNode->setDistanceMod(map[rowPosition][columnPosition].getDistanceMod()+1);
+				}
+			}
 			addToFringe(map, downNode, myFringe);
 		}
 	}
@@ -88,6 +110,17 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 		leftNode = &(map[rowPosition][columnPosition-1]);
 		if(!leftNode->isVisited()) 
 		{
+			if (choice == 'c' || choice == 'd')
+			{
+				if (map[rowPosition][columnPosition].getDistanceMod() == 0)
+				{
+					leftNode->setDistanceMod(1);
+				}
+				else
+				{
+					leftNode->setDistanceMod(map[rowPosition][columnPosition].getDistanceMod()+1);
+				}
+			}
 			addToFringe(map, leftNode, myFringe);
 		}
 	}
@@ -100,6 +133,17 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 		rightNode = &(map[rowPosition][columnPosition+1]);
 		if(!rightNode->isVisited()) 
 		{
+			if (choice == 'c' || choice == 'd')
+			{
+				if (map[rowPosition][columnPosition].getDistanceMod() == 0)
+				{
+					rightNode->setDistanceMod(1);
+				}
+				else
+				{
+					rightNode->setDistanceMod((map[rowPosition][columnPosition].getDistanceMod())+1);
+				}
+			}
 			addToFringe(map, rightNode, myFringe);
 		}
 	}
@@ -123,7 +167,7 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 			nextNode = curr;
 		}
 	}
-	printFringe();
+	//printFringe();
 
 	setLocation(nextNode->getRow(), nextNode->getColumn());
 	myFringe.remove(nextNode);
@@ -136,6 +180,35 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 	// << "Row: " << rowPosition << '\n'
 	// << "Column: " << columnPosition << '\n';
 
+	cout<<"\nCurrent working map: "<<endl;
+	for (int i = 0; i < dimensions; ++i)
+	{
+		for (int j = 0; j < dimensions; ++j)
+		{
+			if (map[i][j].isInitial())
+			{
+				cout<<'i';
+			}
+			else if (map[i][j].isObstacle())
+			{
+				cout<<'x';
+			}
+			else if(map[i][j].isGoal())
+			{
+				cout<<'g';
+			}
+			else if(map[i][j].isVisited())
+			{
+				cout<<'o';
+			}
+			else
+			{
+				cout<<'-';
+			}
+		}
+		cout<<"\n";
+	}
+
 	if(nextNode->isGoal())
 	{
 		cout << "Goal found at ";
@@ -147,6 +220,11 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 	{
 		cout << "Moving towards ";
 		nextNode->printLocation();
+
+		/*cout<<"actual distance = "<<nextNode->getActualDistance()<<endl;
+		cout<<"distance mod = "<<nextNode->getDistanceMod()<<endl;
+		cout<<"distance plus mod = "<<nextNode->getDistance()<<endl;*/
+
 		return 0;
 	}
 }
@@ -174,8 +252,8 @@ void Robot::showPath(Node*& goal, Node**& map)
 	{
 		myNode = myNode->getPrevious();
 		//myNode->printLocation();
-		cout << myNode->getRow() << ',' << myNode->getColumn() << '\n';
-		finalMap[myNode->getRow()][myNode->getColumn()]->setVisit(true);
+		cout <<'('<<myNode->getRow() << ',' << myNode->getColumn()<< ')' << '\n';
+		finalMap[myNode->getRow()][myNode->getColumn()].setVisit(true);
 	}
 	
 	cout << "START" << '\n'<<endl;
