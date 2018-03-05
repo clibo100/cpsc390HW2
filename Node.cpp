@@ -29,10 +29,10 @@ Node::~Node()
 
 void Node::printLocation()
 {
-	cout << '(' << columnPosition << ',' << rowPosition << ')' << '\n';
+	cout << '(' << rowPosition << ',' << columnPosition << ')' << '\n';
 }
 
-void Node::setDistance(int distance)
+void Node::setDistance(double distance)
 {
 	this->distance = distance;
 }
@@ -72,7 +72,7 @@ void Node::setObstacle(bool obstacle)
 	this->obstacle = obstacle;
 }
 
-int Node::getDistance()
+double Node::getDistance()
 {
 	return this->distance;
 }

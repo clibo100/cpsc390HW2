@@ -96,3 +96,36 @@ void Map::calcManhattan(Node**& map, int& dimensions)
 	}
 }
 
+void Map::calcEuclidean(Node**& map, int& dimensions)
+{
+	int goalx, goaly;
+	
+	//find goal node
+	for(int row = 0; row < dimensions; ++row)
+	{
+		for(int column = 0; column < dimensions; ++column)
+		{
+			if (map[row][column].isGoal())
+			{
+				goalx = row;
+				goaly = column;
+			}
+		}
+	}
+
+	//calculates distances from each non obstacle node to goal node using Euclidean distance formula and assigns to new array
+	for(int row = 0; row < dimensions; ++row)
+	{
+		for(int column = 0; column < dimensions; ++column)
+		{
+			if (!map[row][column].isObstacle() && !map[row][column].isGoal() && !map[row][column].isInitial())
+			{
+				map[row][column].setDistance(sqrt(pow((goalx-row),2)+pow((goaly-column),2))); 
+			}
+			else
+			{
+				map[row][column].setDistance(1000);
+			}
+		}
+	}
+}

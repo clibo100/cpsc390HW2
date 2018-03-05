@@ -11,6 +11,8 @@ class Map
 		Map();
 		~Map();
 
-		void calcManhattan(Node**& map, int& dimensions);
 		Node** initMap(string file, int& dimensions, Map& map);
+		void calcManhattan(Node**& map, int& dimensions);
+		void calcEuclidean(Node**& map, int& dimensions);
+
 };

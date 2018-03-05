@@ -7,7 +7,7 @@ class Robot
 {
 	private:
 		int rowPosition, columnPosition;
-		int nodeCount;
+		int nodeCount, dimensions;
 		list<Node*> myFringe;
 	public:
 		Robot();
@@ -16,7 +16,7 @@ class Robot
 		void setLocation(int row, int column);
 		void initRobot(Node**& map, int& dimensions);
 		bool traverseMap(Node**& map, int& dimensions);
-		void showPath(Node*& goal);
+		void showPath(Node*& goal, Node**& map);
 
 		void printFringe();
 		void addToFringe(Node**& map, Node*& node, list<Node*>& fringe);

@@ -12,7 +12,6 @@ int main()
 	int size;
 	string file;
 	Node** theMap = map.initMap("map.txt", size, map);
-	map.calcManhattan(theMap, size);
 
 	//print maps to cmd line
 	cout<< "initial map: " << '\n';
@@ -41,7 +40,36 @@ int main()
 		cout << '\n';
 	}
 
-	cout << '\n' << "Manhattan distances array:" << '\n';
+	char choice;
+	bool correct;
+	cout<<"\nWhich distance function would you like to use?\n a) Euclidean\n b) Manhattan\n c) Euclidean including distance from initial\n d) Manhattan including distance fromm initial\n";
+	cin>>choice;
+
+	while (!correct)
+	{
+		if (choice == 'a' || choice == 'b' || choice == 'c' || choice == 'd')
+		{
+			correct = true;
+		}
+		else
+		{
+			cout<<"\nThat is not a valid option. Please enter either a, b, c, or d\n";
+			cin>>choice;
+		}
+	}
+
+	//cout << '\n' << "Manhattan distances array:" << '\n';
+
+	if (choice == 'b' || choice == 'd')
+	{
+		map.calcManhattan(theMap, size);
+		cout<<"\nManhattan Distances Array\n";
+	}
+	else
+	{
+		map.calcEuclidean(theMap, size);
+		cout<<"\nEuclidean Distances Array\n";
+	}
 
 	for(int row = 0; row < size; ++row)
 	{
@@ -49,19 +77,19 @@ int main()
 		{
 			if (!theMap[row][column].isObstacle() && !theMap[row][column].isGoal() && !theMap[row][column].isInitial())
 			{
-				cout<<theMap[row][column].getDistance();
+				cout<<theMap[row][column].getDistance()<<" ";
 			}
 			else if(theMap[row][column].isObstacle())
 			{
-				cout<<'x';
+				cout<<'x' << " " ;
 			}
 			else if(theMap[row][column].isInitial())
 			{
-				cout<<'i';
+				cout<<'i' << " " ;
 			}
 			else if(theMap[row][column].isGoal())
 			{
-				cout<<'g';
+				cout<<'g' << " " ;
 			}
 		}
 		cout << '\n';
@@ -76,6 +104,7 @@ int main()
 		goalReached = robot.traverseMap(theMap, size);
 		cin.ignore();
 	}
+
 	//Testing nodes and getting pointers
 	/*Node foo = Node();
 	Node bar = Node();
@@ -86,8 +115,6 @@ int main()
 
 	//robot.traverseMap(theMap, distMap, size);
 	//do this when this function actually does something 
-
-	//TODO: the rest of the program lolol
 
 	return 0;
 }

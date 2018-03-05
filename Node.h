@@ -3,7 +3,7 @@ using namespace std;
 class Node
 {
 	private:
-		int distance;
+		double distance;
 		int rowPosition, columnPosition;
 		Node* previousNode;
 		bool visited, initial, goal, obstacle;
@@ -14,7 +14,7 @@ class Node
 
 		void printLocation();
 
-		void setDistance(int distance);
+		void setDistance(double distance);
 		void setRow(int row);
 		void setColumn(int column);
 		void setVisit(bool visit);
@@ -23,7 +23,7 @@ class Node
 		void setGoal(bool goal);
 		void setObstacle(bool obstacle);
 
-		int getDistance();
+		double getDistance();
 		int getRow();
 		int getColumn();
 		bool isVisited();

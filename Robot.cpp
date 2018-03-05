@@ -18,6 +18,7 @@ Robot::Robot()
 	rowPosition = 0;
 	columnPosition = 0;
 	nodeCount = 0;
+	dimensions = 0;
 }
 
 Robot::~Robot()
@@ -40,7 +41,8 @@ void Robot::initRobot(Node**& map, int& dimensions)
 		}
 	}
 
-	cout << "Robot starting at (" << columnPosition << ',' << rowPosition << ')' << '\n';
+	cout << "\nRobot starting at (" << rowPosition << ',' << columnPosition << ')' << '\n';
+	this->dimensions = dimensions;
 }
 
 void Robot::setLocation(int row, int column)
@@ -138,7 +140,7 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 	{
 		cout << "Goal found at ";
 		nextNode->printLocation();
-		showPath(nextNode);
+		showPath(nextNode, map);
 		return 1;
 	}
 	else
@@ -149,17 +151,61 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 	}
 }
 
-void Robot::showPath(Node*& goal)
+void Robot::showPath(Node*& goal, Node**& map)
 {
 	Node* myNode = goal;
 	cout << "Following path found: " << '\n' << "GOAL" << '\n';
+
+	Node** finalMap = map;
+
+	for (int i = 0; i < this->dimensions; ++i)
+	{
+		for (int j = 0; j < this->dimensions; ++j)
+		{
+			finalMap[i][j].setVisit(false);
+		}
+	}
+
 	myNode->printLocation();
+
+	finalMap[myNode->getRow(), myNode->getColumn()]->setVisit(true);
+	
 	while(!myNode->isInitial())
 	{
 		myNode = myNode->getPrevious();
 		myNode->printLocation();
+		finalMap[myNode->getRow(), myNode->getColumn()]->setVisit(true);
 	}
-	cout << "START" << '\n';
+	
+	cout << "START" << '\n'<<endl;
+
+	for (int i = 0; i < this->dimensions; ++i)
+	{
+		for (int j = 0; j < this->dimensions; ++j)
+		{
+			if (finalMap[i][j].isInitial())
+			{
+				cout<<'i';
+			}
+			else if (finalMap[i][j].isObstacle())
+			{
+				cout<<'x';
+			}
+			else if(finalMap[i][j].isGoal())
+			{
+				cout<<'g';
+			}
+			else if(finalMap[i][j].isVisited())
+			{
+				cout<<'o';
+			}
+			else
+			{
+				cout<<'-';
+			}
+		}
+		cout<<'\n';
+	}
 }
 
 void Robot::printFringe()
