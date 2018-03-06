@@ -8,7 +8,7 @@ Miguel Gotao & Sierra Clibourne
 
 ---
 
-###Program Details
+### Program Details
 
 This program simulates multiple search methods of an AI on a square, node-based grid, including calculations for Euclidean distance, Manhattan distance, and Best-First search based on the two former.
 
@@ -18,25 +18,25 @@ be used so long as they follow the same formatting, with the first line containi
 
 Map entities are as follows:
 
---*i - initial state where the robot will begin
++ i: initial state where the robot will begin
 
---*g - goal state that the robot will traverse towards
++ g: goal state that the robot will traverse towards
 
---*+ - obstacle on the map that the robot will need to maneuver around
+- +: obstacle on the map that the robot will need to maneuver around
 
---*. - empty space on the map, the robot may move to this space
++ . : empty space on the map, the robot may move to this space
 
 ---
 
-###Files included
+### Files included
 
-+main.cpp
-+Map.cpp
-+Map.h
-+Node.cpp
-+Node.h
-+Robot.cpp
-+Robot.h
-+map.txt
-+output.txt
-+makefile
++ main.cpp
++ Map.cpp
++ Map.h
++ Node.cpp
++ Node.h
++ Robot.cpp
++ Robot.h
++ map.txt
++ output.txt
++ makefile
