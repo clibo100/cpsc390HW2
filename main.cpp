@@ -12,7 +12,9 @@ int main()
 	Map map;
 	int size;
 	string file;
-	Node** theMap = map.initMap("map.txt", size, map);
+	cout<<"enter file name: (ex. file.txt)"<<endl;
+	cin>>file;
+	Node** theMap = map.initMap(file, size, map);
 
 	//print maps to cmd line
 	cout<< "initial map: " << '\n';
@@ -86,5 +88,153 @@ int main()
 		}
 		output<<'\n';
 	}
+
+	output<<"Total Nodes Visited : "<<robot.getNodeCount()<<endl;
+	output<<"Nodes in Final Path : "<<robot.getFinalNodeCount()<<endl;
+	output<<"Total cost : "<<robot.getFinalCost()<<endl<<endl;
+
+	theMap = map.initMap(file, size, map);
+	map.calcEuclidean(theMap, size);
+	choice = 'b';
+	robot.initRobot(theMap, size, choice);
+
+	goalReached = false;
+	while(!goalReached)
+	{
+		goalReached = robot.traverseMap(theMap, size);
+	}
+
+	finalMap = robot.getFinalMap();
+
+	output<<"Euclidean: "<<endl;
+
+	for (int i = 0; i < size; ++i)
+	{
+		for (int j = 0; j < size; ++j)
+		{
+			if (finalMap[i][j].isInitial())
+			{
+				output<<'i';
+			}
+			else if (finalMap[i][j].isObstacle())
+			{
+				output<<'+';
+			}
+			else if(finalMap[i][j].isGoal())
+			{
+				output<<'g';
+			}
+			else if(finalMap[i][j].isVisited())
+			{
+				output<<'o';
+			}
+			else
+			{
+				output<<'.';
+			}
+		}
+		output<<'\n';
+	}
+
+	output<<"Total Nodes Visited : "<<robot.getNodeCount()<<endl;
+	output<<"Nodes in Final Path : "<<robot.getFinalNodeCount()<<endl;
+	output<<"Total cost : "<<robot.getFinalCost()<<endl<<endl;
+
+	/////////////////////////////////////////////////
+	theMap = map.initMap(file, size, map);
+	map.calcManhattan(theMap, size);
+	choice = 'c';
+	robot.initRobot(theMap, size, choice);
+
+	goalReached = false;
+	while(!goalReached)
+	{
+		goalReached = robot.traverseMap(theMap, size);
+	}
+
+	finalMap = robot.getFinalMap();
+
+	output<<"Manhattan with Distance from Initial: "<<endl;
+
+	for (int i = 0; i < size; ++i)
+	{
+		for (int j = 0; j < size; ++j)
+		{
+			if (finalMap[i][j].isInitial())
+			{
+				output<<'i';
+			}
+			else if (finalMap[i][j].isObstacle())
+			{
+				output<<'+';
+			}
+			else if(finalMap[i][j].isGoal())
+			{
+				output<<'g';
+			}
+			else if(finalMap[i][j].isVisited())
+			{
+				output<<'o';
+			}
+			else
+			{
+				output<<'.';
+			}
+		}
+		output<<'\n';
+	}
+
+	output<<"Total Nodes Visited : "<<robot.getNodeCount()<<endl;
+	output<<"Nodes in Final Path : "<<robot.getFinalNodeCount()<<endl;
+	output<<"Total cost : "<<robot.getFinalCost()<<endl<<endl;
+
+	//////////////////////////////////////////////////
+	theMap = map.initMap(file, size, map);
+	map.calcEuclidean(theMap, size);
+	choice = 'd';
+	robot.initRobot(theMap, size, choice);
+
+	goalReached = false;
+	while(!goalReached)
+	{
+		goalReached = robot.traverseMap(theMap, size);
+	}
+
+	finalMap = robot.getFinalMap();
+
+	output<<"Euclidean with Distance from Initial: "<<endl;
+
+	for (int i = 0; i < size; ++i)
+	{
+		for (int j = 0; j < size; ++j)
+		{
+			if (finalMap[i][j].isInitial())
+			{
+				output<<'i';
+			}
+			else if (finalMap[i][j].isObstacle())
+			{
+				output<<'+';
+			}
+			else if(finalMap[i][j].isGoal())
+			{
+				output<<'g';
+			}
+			else if(finalMap[i][j].isVisited())
+			{
+				output<<'o';
+			}
+			else
+			{
+				output<<'.';
+			}
+		}
+		output<<'\n';
+	}
+
+	output<<"Total Nodes Visited : "<<robot.getNodeCount()<<endl;
+	output<<"Nodes in Final Path : "<<robot.getFinalNodeCount()<<endl;
+	output<<"Total cost : "<<robot.getFinalCost()<<endl<<endl;
+
 	return 0;
 }

@@ -16,7 +16,7 @@ Robot::Robot()
 	Node** finalMap;
 	rowPosition = 0;
 	columnPosition = 0;
-	nodeCount = 0;
+	nodeCount = 0, finalNodeCount = 0, finalCost = 0;
 	dimensions = 0;
 	choice = 'a';
 }
@@ -44,6 +44,11 @@ void Robot::initRobot(Node**& map, int& dimensions, char choice)
 	cout << "\nRobot starting at (" << rowPosition << ',' << columnPosition << ')' << '\n';
 	this->dimensions = dimensions;
 	this->choice = choice;
+	myFringe.clear();
+	finalNodeCount = 0;
+	nodeCount = 0;
+	finalCost = 0;
+
 }
 
 void Robot::setLocation(int row, int column)
@@ -172,7 +177,6 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 
 	setLocation(nextNode->getRow(), nextNode->getColumn());
 	myFringe.remove(nextNode);
-	nodeCount--;
 	// cout << "Old Location: " << '\n'
 	// << "Row: " << nextNode->getPrevious()->getRow() << '\n'
 	// << "Column: " << nextNode->getPrevious()->getColumn() << '\n';
@@ -233,6 +237,8 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 void Robot::showPath(Node*& goal, Node**& map)
 {
 	Node* myNode = goal;
+	finalNodeCount = 1;
+	finalCost += myNode->getDistance();
 	cout << "Following path found: " << '\n' << "GOAL" << '\n';
 
 	finalMap = map;
@@ -255,6 +261,8 @@ void Robot::showPath(Node*& goal, Node**& map)
 		//myNode->printLocation();
 		cout <<'('<<myNode->getRow() << ',' << myNode->getColumn()<< ')' << '\n';
 		finalMap[myNode->getRow()][myNode->getColumn()].setVisit(true);
+		finalNodeCount++;
+		finalCost += myNode->getDistance();
 	}
 	
 	cout << "START" << '\n'<<endl;
@@ -315,4 +323,19 @@ void Robot::addToFringe(Node**& map, Node*& node, list<Node*>& fringe)
 Node** Robot::getFinalMap()
 {
 	return finalMap;
+}
+
+int Robot::getNodeCount()
+{
+	return nodeCount;
+}
+
+int Robot::getFinalNodeCount()
+{
+	return finalNodeCount;
+}
+
+int Robot::getFinalCost()
+{
+	return finalCost;
 }

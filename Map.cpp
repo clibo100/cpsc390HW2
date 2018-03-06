@@ -24,9 +24,6 @@ Node** Map::initMap(string file, int& dimensions, Map& map)
 	char text;
 	ifstream fileIn;
 
-	cout<<"enter file name: (ex. file.txt)"<<endl;
-	cin>>file;
-
 	fileIn.open(file.c_str());
 	fileIn >> dimensions;
 
