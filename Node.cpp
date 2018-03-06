@@ -1,3 +1,13 @@
+/*===============================================
+Miguel Gotao & Sierra Clibourne
+2264941 - gotao100@mail.chapman.edu
+2263981 - clibo100@mail.chapman.edu
+
+Node class that populates the map. Mostly getters
+and setters that are manipulated by the map and
+robot.
+===============================================*/
+
 #include "Node.h"
 #include <cstddef>
 #include <iostream>

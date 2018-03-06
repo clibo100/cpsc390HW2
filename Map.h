@@ -1,3 +1,11 @@
+/*===============================================
+Miguel Gotao & Sierra Clibourne
+2264941 - gotao100@mail.chapman.edu
+2263981 - clibo100@mail.chapman.edu
+
+Header file of Map class.
+===============================================*/
+
 #include <string>
 class Node;
 

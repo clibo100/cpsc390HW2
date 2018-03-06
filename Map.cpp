@@ -1,4 +1,13 @@
-#include <string>
+/*===============================================
+Miguel Gotao & Sierra Clibourne
+2264941 - gotao100@mail.chapman.edu
+2263981 - clibo100@mail.chapman.edu
+
+Map class that creates the space the robot will
+traverse. Also in charge of making the distance
+calculations and assigning them to the nodes.
+===============================================*/
+
 #include <fstream>
 #include <cmath>
 #include <iostream>

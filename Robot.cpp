@@ -1,3 +1,11 @@
+/*===============================================
+Miguel Gotao & Sierra Clibourne
+2264941 - gotao100@mail.chapman.edu
+2263981 - clibo100@mail.chapman.edu
+
+Robot class in charge of traversing the map. 
+===============================================*/
+
 #include <string>
 #include <list>
 #include <fstream>
@@ -26,6 +34,7 @@ Robot::~Robot()
 
 }
 
+//Find the robot's location on the map
 void Robot::initRobot(Node**& map, int& dimensions, char choice)
 {
 	//find initial node and set robot location to it
@@ -52,12 +61,14 @@ void Robot::initRobot(Node**& map, int& dimensions, char choice)
 
 }
 
+//Set new location on map
 void Robot::setLocation(int row, int column)
 {
 	this->rowPosition = row;
 	this->columnPosition = column;
 }
 
+//Main function in charge of map traversal
 bool Robot::traverseMap(Node**& map, int& dimensions)
 {
 	//get surrounding nodes
@@ -177,7 +188,7 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 		}
 	}
 	//printFringe();
-
+	//Move the robot to the next node, remove node from fringe.
 	setLocation(nextNode->getRow(), nextNode->getColumn());
 	myFringe.remove(nextNode);
 	// cout << "Old Location: " << '\n'
@@ -238,6 +249,7 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 	}
 }
 
+//Show final path from goal node to initial position.
 void Robot::showPath(Node*& goal, Node**& map)
 {
 	//find final path and final map and print them 
@@ -301,6 +313,7 @@ void Robot::showPath(Node*& goal, Node**& map)
 	}
 }
 
+//Print out all nodes currently in the fringe.
 void Robot::printFringe()
 {
 	//prints fringe
@@ -318,6 +331,7 @@ void Robot::printFringe()
 	}
 }
 
+//Add a node to the fringe when the robot is adjacent to it AND hasn't been visited
 void Robot::addToFringe(Node**& map, Node*& node, list<Node*>& fringe)
 {
 	//adds node to fringe

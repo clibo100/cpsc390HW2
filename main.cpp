@@ -1,3 +1,15 @@
+/*===============================================
+Miguel Gotao & Sierra Clibourne
+2264941 - gotao100@mail.chapman.edu
+2263981 - clibo100@mail.chapman.edu
+
+Main file in charge of running the program. Takes in
+map.txt and initializes the robot for traversal. The
+robot will execute the four search strategies, which
+the final found path will be printed to the output
+file, along with the total distance of each path.
+===============================================*/
+
 #include <iostream>
 #include <fstream>
 #include "Map.h"
