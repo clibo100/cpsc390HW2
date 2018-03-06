@@ -41,6 +41,7 @@ void Robot::initRobot(Node**& map, int& dimensions, char choice)
 		}
 	}
 
+	//reset variables
 	cout << "\nRobot starting at (" << rowPosition << ',' << columnPosition << ')' << '\n';
 	this->dimensions = dimensions;
 	this->choice = choice;
@@ -65,6 +66,7 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 	Node* leftNode;
 	Node* rightNode;
 
+	//if the four surrounding nodes are traversable, add them to the fringe, and set the prev and the distance mod if applicable
 	if (rowPosition != 0 && !map[rowPosition-1][columnPosition].isObstacle())
 	{
 		upNode = &(map[rowPosition-1][columnPosition]);
@@ -158,6 +160,7 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 		rightNode = NULL;
 	}
 
+	//find next node with least distance
 	Node* nextNode = NULL;
 	list<Node*>::iterator i;
 	for(i = myFringe.begin(); i != myFringe.end(); ++i)
@@ -185,7 +188,7 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 	// << "Row: " << rowPosition << '\n'
 	// << "Column: " << columnPosition << '\n';
 
-	cout<<"\nCurrent working map: "<<endl;
+	/*cout<<"\nCurrent working map: "<<endl;
 	for (int i = 0; i < dimensions; ++i)
 	{
 		for (int j = 0; j < dimensions; ++j)
@@ -212,8 +215,9 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 			}
 		}
 		cout<<"\n";
-	}
+	}*/
 
+	//check if goal
 	if(nextNode->isGoal())
 	{
 		cout << "Goal found at ";
@@ -236,6 +240,7 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 
 void Robot::showPath(Node*& goal, Node**& map)
 {
+	//find final path and final map and print them 
 	Node* myNode = goal;
 	finalNodeCount = 1;
 	finalCost += myNode->getDistance();
@@ -298,6 +303,7 @@ void Robot::showPath(Node*& goal, Node**& map)
 
 void Robot::printFringe()
 {
+	//prints fringe
 	if(nodeCount == 0) return;
 	else
 	{
@@ -314,6 +320,7 @@ void Robot::printFringe()
 
 void Robot::addToFringe(Node**& map, Node*& node, list<Node*>& fringe)
 {
+	//adds node to fringe
 	nodeCount++;
 	node->setVisit(true);
 	node->setPrevious(&(map[rowPosition][columnPosition]));

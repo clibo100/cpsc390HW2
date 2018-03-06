@@ -44,6 +44,7 @@ int main()
 	}
 
 	map.calcManhattan(theMap, size);
+	cout<<"\nManhattan: "<<endl;
 	char choice = 'a';
 	//initialize robot
 	Robot robot;
@@ -61,6 +62,7 @@ int main()
 
 	output<<"Manhattan: "<<endl;
 
+	//output to file
 	for (int i = 0; i < size; ++i)
 	{
 		for (int j = 0; j < size; ++j)
@@ -89,10 +91,10 @@ int main()
 		output<<'\n';
 	}
 
-	output<<"Total Nodes Visited : "<<robot.getNodeCount()<<endl;
-	output<<"Nodes in Final Path : "<<robot.getFinalNodeCount()<<endl;
-	output<<"Total cost : "<<robot.getFinalCost()<<endl<<endl;
+	output<<"Total Nodes Seen : "<<robot.getNodeCount()<<endl;
+	output<<"Nodes in Final Path : "<<robot.getFinalNodeCount()<<endl<<endl;;
 
+	cout<<"\nEuclidean: "<<endl;
 	theMap = map.initMap(file, size, map);
 	map.calcEuclidean(theMap, size);
 	choice = 'b';
@@ -136,11 +138,10 @@ int main()
 		output<<'\n';
 	}
 
-	output<<"Total Nodes Visited : "<<robot.getNodeCount()<<endl;
-	output<<"Nodes in Final Path : "<<robot.getFinalNodeCount()<<endl;
-	output<<"Total cost : "<<robot.getFinalCost()<<endl<<endl;
+	output<<"Total Nodes Seen : "<<robot.getNodeCount()<<endl;
+	output<<"Nodes in Final Path : "<<robot.getFinalNodeCount()<<endl<<endl;;
 
-	/////////////////////////////////////////////////
+	cout<<"\nManhattan with Distance from Initial: "<<endl;
 	theMap = map.initMap(file, size, map);
 	map.calcManhattan(theMap, size);
 	choice = 'c';
@@ -184,11 +185,10 @@ int main()
 		output<<'\n';
 	}
 
-	output<<"Total Nodes Visited : "<<robot.getNodeCount()<<endl;
-	output<<"Nodes in Final Path : "<<robot.getFinalNodeCount()<<endl;
-	output<<"Total cost : "<<robot.getFinalCost()<<endl<<endl;
+	output<<"Total Nodes Seen : "<<robot.getNodeCount()<<endl;
+	output<<"Nodes in Final Path : "<<robot.getFinalNodeCount()<<endl<<endl;
 
-	//////////////////////////////////////////////////
+	cout<<"\nEuclidean with Distance from Initial: "<<endl;
 	theMap = map.initMap(file, size, map);
 	map.calcEuclidean(theMap, size);
 	choice = 'd';
@@ -232,9 +232,10 @@ int main()
 		output<<'\n';
 	}
 
-	output<<"Total Nodes Visited : "<<robot.getNodeCount()<<endl;
-	output<<"Nodes in Final Path : "<<robot.getFinalNodeCount()<<endl;
-	output<<"Total cost : "<<robot.getFinalCost()<<endl<<endl;
+	output<<"Total Nodes Seen : "<<robot.getNodeCount()<<endl;
+	output<<"Nodes in Final Path : "<<robot.getFinalNodeCount()<<endl<<endl;
+
+	cout<<"\nResults in file output.txt"<<endl;
 
 	return 0;
 }

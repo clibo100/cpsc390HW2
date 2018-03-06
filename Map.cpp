@@ -97,6 +97,7 @@ void Map::calcManhattan(Node**& map, int& dimensions)
 	}
 }
 
+//the same thing as the manhattan one but for euclidean
 void Map::calcEuclidean(Node**& map, int& dimensions)
 {
 	int goalx, goaly;
