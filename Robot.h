@@ -9,6 +9,7 @@ class Robot
 		int rowPosition, columnPosition;
 		int nodeCount, dimensions;
 		char choice;
+		Node** finalMap;
 		list<Node*> myFringe;
 	public:
 		Robot();
@@ -21,4 +22,6 @@ class Robot
 
 		void printFringe();
 		void addToFringe(Node**& map, Node*& node, list<Node*>& fringe);
+
+		Node** getFinalMap();
 };

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "Map.h"
 #include "Robot.h"
 #include "Node.h"
@@ -30,71 +31,18 @@ int main()
 			}
 			else if (theMap[row][column].isObstacle())
 			{
-				cout<<"x";
+				cout<<"+";
 			}
 			else
 			{
-				cout<<'-';
+				cout<<'.';
 			}
 		}
 		cout << '\n';
 	}
 
-	char choice;
-	bool correct;
-	cout<<"\nWhich distance function would you like to use?\n a) Euclidean\n b) Manhattan\n c) Euclidean including distance from initial\n d) Manhattan including distance fromm initial\n";
-	cin>>choice;
-
-	while (!correct)
-	{
-		if (choice == 'a' || choice == 'b' || choice == 'c' || choice == 'd')
-		{
-			correct = true;
-		}
-		else
-		{
-			cout<<"\nThat is not a valid option. Please enter either a, b, c, or d\n";
-			cin>>choice;
-		}
-	}
-
-	//cout << '\n' << "Manhattan distances array:" << '\n';
-
-	if (choice == 'b' || choice == 'd')
-	{
-		map.calcManhattan(theMap, size);
-		cout<<"\nManhattan Distances Array\n";
-	}
-	else
-	{
-		map.calcEuclidean(theMap, size);
-		cout<<"\nEuclidean Distances Array\n";
-	}
-
-	for(int row = 0; row < size; ++row)
-	{
-		for(int column = 0; column < size; ++column)
-		{
-			if (!theMap[row][column].isObstacle() && !theMap[row][column].isGoal() && !theMap[row][column].isInitial())
-			{
-				cout<<theMap[row][column].getDistance()<<" ";
-			}
-			else if(theMap[row][column].isObstacle())
-			{
-				cout<<'x' << " " ;
-			}
-			else if(theMap[row][column].isInitial())
-			{
-				cout<<'i' << " " ;
-			}
-			else if(theMap[row][column].isGoal())
-			{
-				cout<<'g' << " " ;
-			}
-		}
-		cout << '\n';
-	}
-
+	map.calcManhattan(theMap, size);
+	char choice = 'a';
 	//initialize robot
 	Robot robot;
 	robot.initRobot(theMap, size, choice);
@@ -102,19 +50,41 @@ int main()
 	while(!goalReached)
 	{
 		goalReached = robot.traverseMap(theMap, size);
-		cin.ignore();
 	}
 
-	//Testing nodes and getting pointers
-	/*Node foo = Node();
-	Node bar = Node();
-	foo.setDistance(5);
-	bar.setPrevious(&foo);
-	cout << bar.getPrevious() -> getDistance();*/
+	Node** finalMap = robot.getFinalMap();
 
+	ofstream output;
+	output.open ("output.txt");
 
-	//robot.traverseMap(theMap, distMap, size);
-	//do this when this function actually does something 
+	output<<"Manhattan: "<<endl;
 
+	for (int i = 0; i < size; ++i)
+	{
+		for (int j = 0; j < size; ++j)
+		{
+			if (finalMap[i][j].isInitial())
+			{
+				output<<'i';
+			}
+			else if (finalMap[i][j].isObstacle())
+			{
+				output<<'+';
+			}
+			else if(finalMap[i][j].isGoal())
+			{
+				output<<'g';
+			}
+			else if(finalMap[i][j].isVisited())
+			{
+				output<<'o';
+			}
+			else
+			{
+				output<<'.';
+			}
+		}
+		output<<'\n';
+	}
 	return 0;
 }

@@ -13,6 +13,7 @@ using namespace std;
 Robot::Robot()
 {
 	list<Node*> myFringe;
+	Node** finalMap;
 	rowPosition = 0;
 	columnPosition = 0;
 	nodeCount = 0;
@@ -191,7 +192,7 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 			}
 			else if (map[i][j].isObstacle())
 			{
-				cout<<'x';
+				cout<<'+';
 			}
 			else if(map[i][j].isGoal())
 			{
@@ -203,7 +204,7 @@ bool Robot::traverseMap(Node**& map, int& dimensions)
 			}
 			else
 			{
-				cout<<'-';
+				cout<<'.';
 			}
 		}
 		cout<<"\n";
@@ -234,7 +235,7 @@ void Robot::showPath(Node*& goal, Node**& map)
 	Node* myNode = goal;
 	cout << "Following path found: " << '\n' << "GOAL" << '\n';
 
-	Node** finalMap = map;
+	finalMap = map;
 
 	for (int i = 0; i < this->dimensions; ++i)
 	{
@@ -268,7 +269,7 @@ void Robot::showPath(Node*& goal, Node**& map)
 			}
 			else if (finalMap[i][j].isObstacle())
 			{
-				cout<<'x';
+				cout<<'+';
 			}
 			else if(finalMap[i][j].isGoal())
 			{
@@ -280,7 +281,7 @@ void Robot::showPath(Node*& goal, Node**& map)
 			}
 			else
 			{
-				cout<<'-';
+				cout<<'.';
 			}
 		}
 		cout<<'\n';
@@ -309,4 +310,9 @@ void Robot::addToFringe(Node**& map, Node*& node, list<Node*>& fringe)
 	node->setVisit(true);
 	node->setPrevious(&(map[rowPosition][columnPosition]));
 	fringe.push_front(node);
+}
+
+Node** Robot::getFinalMap()
+{
+	return finalMap;
 }

@@ -23,6 +23,10 @@ Node** Map::initMap(string file, int& dimensions, Map& map)
 	//read file and get dimension of map
 	char text;
 	ifstream fileIn;
+
+	cout<<"enter file name: (ex. file.txt)"<<endl;
+	cin>>file;
+
 	fileIn.open(file.c_str());
 	fileIn >> dimensions;
 
@@ -49,7 +53,7 @@ Node** Map::initMap(string file, int& dimensions, Map& map)
 			{
 				m_Map[row][column].setInitial(true);
 			}
-			if (text == 'x')
+			if (text == '+')
 			{
 				m_Map[row][column].setObstacle(true);
 			}
